@@ -296,6 +296,7 @@ aside footer {
   width: 100vw;
   overflow: scroll;
   cursor: all-scroll;
+  cursor: default;
   grid-column: 2/-1;
   grid-row: 2/-1;
   background-color: var(--primary);
@@ -358,7 +359,7 @@ aside footer {
   width: 100%;
   line-height: 22px;
   word-break: break-all;
-  cursor: grab;
+  cursor: pointer;
   transition: opacity 100ms ease-in-out;
 }
 .boardColumn li:hover {

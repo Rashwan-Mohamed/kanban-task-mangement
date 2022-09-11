@@ -124,21 +124,23 @@ const Header = ({ selectBord, setSelectBord }) => {
           >
             {tab && <img src='assets/logo-mobile.svg' alt='' />}{' '}
             {selected || 'no boards'}
-            <span>
-              <svg
-                style={{ transform: selectBord ? 'rotate(180deg)' : '' }}
-                width='10'
-                height='7'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  stroke='#635FC7'
-                  stroke-width='2'
-                  fill='none'
-                  d='m1 1 4 4 4-4'
-                />
-              </svg>
-            </span>
+            {tab && (
+              <span>
+                <svg
+                  style={{ transform: selectBord ? 'rotate(180deg)' : '' }}
+                  width='10'
+                  height='7'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    stroke='#635FC7'
+                    stroke-width='2'
+                    fill='none'
+                    d='m1 1 4 4 4-4'
+                  />
+                </svg>
+              </span>
+            )}
           </h1>
           {boards.length > 0 && (
             <div className='header-btns'>
