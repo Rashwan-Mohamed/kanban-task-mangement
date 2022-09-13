@@ -4,11 +4,9 @@ import { editTask } from '../boardSlice'
 
 import { UseAppContext } from '../../../context'
 import CustomDrop from './customDrop'
+import { useEffect } from 'react'
 function EditTask({ setEditTask, selectedTask }) {
-  // the task is in a board, column and has an id
-  // the board(theOne),
   const { selected } = UseAppContext()
-  const { id, subtasks } = selectedTask
   const boards = useSelector((state) => state.boards)
   let theOne
   boards.forEach((item) => {
@@ -16,11 +14,24 @@ function EditTask({ setEditTask, selectedTask }) {
       theOne = { ...item }
     }
   })
+  const [currnent, setCurrent] = useState(() => {
+    let nner
+    theOne.columns.forEach((item) => {
+      item.tasks.find((task) => {
+        if (task.id === selectedTask.id) {
+          return (nner = task)
+        }
+      })
+    })
+    return nner
+  })
+  const { id, subtasks } = currnent
+
   const form = useRef(null)
   const [tasks, setTasks] = useState(subtasks)
   const [entries, setEntries] = useState({
-    title: selectedTask.title,
-    desc: selectedTask.description,
+    title: currnent.title,
+    desc: currnent.description,
   })
   const [usedBoard, setUsedBoard] = useState('trial')
 
@@ -32,17 +43,25 @@ function EditTask({ setEditTask, selectedTask }) {
     return alig
   })
   const [status, setStatus] = useState({
-    status: selectedTask.status,
-    statusId: selectedTask.statusId,
+    status: currnent.status,
+    statusId: currnent.statusId,
   })
   const unShow = (e) => {
     if (!form.current.contains(e.target)) {
       setEditTask(false)
     }
   }
-  // to dispatch this action, send the regualr task as before,
-  // one additional info is the id of this task
+
   const dispatch = useDispatch()
+  useEffect(() => {
+    theOne.columns.forEach((item) => {
+      item.tasks.find((task) => {
+        if (task.id === id) {
+          setCurrent(task)
+        }
+      })
+    })
+  }, [theOne])
   const handleSubmit = (e) => {
     e.preventDefault()
     let proceed = true
@@ -89,7 +108,7 @@ function EditTask({ setEditTask, selectedTask }) {
     if (proceed) {
       dispatch(
         editTask({
-          prevStatus: selectedTask.status,
+          prevStatus: currnent.status,
           id,
           selected,
           ...status,

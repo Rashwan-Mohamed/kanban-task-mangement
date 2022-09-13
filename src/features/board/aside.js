@@ -37,7 +37,10 @@ function Aside({ erre, setSelectBord }) {
                 <li
                   onClick={() => {
                     setSelected(name)
-                    setSelectBord(false)
+
+                    if (tab) {
+                      setSelectBord(false)
+                    }
                   }}
                   className={`${
                     selected === name ? 'selected-board' : 'undefined'

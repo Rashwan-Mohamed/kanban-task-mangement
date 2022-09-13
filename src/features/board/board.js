@@ -37,13 +37,13 @@ const Board = () => {
     )
   }
   const { columns, id } = board
+  console.log('updated')
   return (
     <>
       <section
         style={{
           backgroundColor: !dark ? 'var(--whiteFirst)' : '',
           left: hideSide ? '-300px' : '0',
-          // gridColumn: hideSide ? '1/-1' : '2/-1',
         }}
         className='board-container'
       >
